@@ -13,7 +13,7 @@ To try it out, create a python project structured like this:
 
 
 
-...
+
 from sync_nios4 import sync_nios4
 
 username = "username"
@@ -29,4 +29,4 @@ if sincro.err.error == True:
 sincro.syncro(dbname)
 if sincro.err.error == True:
     print("ERROR -> " + sincro.err.errormessage)
-...
+
