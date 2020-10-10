@@ -1,4 +1,3 @@
-# py_sync_nios4
 Python synchronization libraries to nios4 cloud databases
 
 Ok this is the first version of the libraries to connect directly to the Nios4 data synchronizer.
@@ -13,7 +12,7 @@ To try it out, create a python project structured like this:
 
 
 
-
+...
 from sync_nios4 import sync_nios4
 
 username = "username"
@@ -29,4 +28,5 @@ if sincro.err.error == True:
 sincro.syncro(dbname)
 if sincro.err.error == True:
     print("ERROR -> " + sincro.err.errormessage)
+...
 
