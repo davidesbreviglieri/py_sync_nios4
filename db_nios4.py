@@ -42,7 +42,7 @@ class db_nios4:
 
     def setdb(self,dbname):
         self.__dbname = dbname
-        self.__dbpath = self.__dirdb + "\\" + dbname + ".sqlite3"
+        self.__dbpath = self.__dirdb + "/" + dbname + ".sqlite3"
 
         if os.path.exists(self.__dbpath) == False:
             try:

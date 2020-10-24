@@ -18,7 +18,7 @@ class sync_nios4:
     def __init__(self,username,password):
         self.__username = username
         self.__password = password
-        self.__db = db_nios4(os.path.abspath(os.getcwd()) + "\\db") #initialize for sqlite
+        self.__db = db_nios4(os.path.abspath(os.getcwd()) + "/db") #initialize for sqlite
         self.__utility = utility_n4
         self.err = error_n4("","")
         self.__db.err = self.err
