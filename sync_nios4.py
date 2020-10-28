@@ -1,30 +1,47 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- 
-
-#==========================================================
+#================================================================================
+#Copyright of Davide Sbreviglieri 2020
+#THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+#AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+#IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+#DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+#FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+#DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+#SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+#CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+#OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+#OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE
+#================================================================================
 #SYNC NIOS4
-#==========================================================
+#================================================================================
 import os
 import json
 import urllib.request
 import datetime
-#==========================================================
+#================================================================================
 from utility_nios4 import error_n4
 from utility_nios4 import utility_n4
 from db_nios4 import db_nios4
+#================================================================================
 
 class sync_nios4:
 
     def __init__(self,username,password):
+        #initialize class
         self.__username = username
         self.__password = password
+        #standard path of db file
         self.__db = db_nios4(os.path.abspath(os.getcwd()) + "/db") #initialize for sqlite
         self.__utility = utility_n4
+        #class for errors
         self.err = error_n4("","")
         self.__db.err = self.err
+        #if view message log on console
         self.viewmessage = True
         self.__db.viewmessage = self.viewmessage
         self.__token = ""
+        #maximum number of lines that can be shipped at a time
         self.nrow_sync = 5000
 
     def login(self):
@@ -176,7 +193,6 @@ class sync_nios4:
 
                         if self.__db.delete_fields(datablock["clean_fields"][key],key) == False:
                             return False
-                        #print(datablock["clean_fields"])
             #--------------------------------------------
             if reloadtables == True or reloadfields == True:
                 actualtables = self.__db.get_tablesname()

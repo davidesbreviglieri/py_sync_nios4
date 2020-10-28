@@ -1,20 +1,35 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- 
-#text github
-#==========================================================
+#================================================================================
+#Copyright of Davide Sbreviglieri 2020
+#THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+#AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+#IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+#DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+#FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+#DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+#SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+#CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+#OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+#OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE
+#================================================================================
 #DB NIOS4 (SQLITE VERSION)
-#==========================================================
+#================================================================================
+#standard class
 import sqlite3
 import os
 import datetime
 import random, string
-#==========================================================
+#================================================================================
+#nios4 class
 from utility_nios4 import error_n4
 from utility_nios4 import utility_n4
-#==========================================================
+#================================================================================
 class db_nios4:
 
     def __init__(self,dir_db):
+        #Class initialization
+        #If the folder where to save the database does not exist it is created
         self.__dirdb = dir_db
         self.viewmessage = True
         if os.path.exists(dir_db) == False:
@@ -38,9 +53,12 @@ class db_nios4:
             return None
 
     def stime(self):
+        #return string of current date
         return datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
     def setdb(self,dbname):
+        #inizialize db
+        #if db non exist the class create file and create all standard tables of Nios4 for correct work
         self.__dbname = dbname
         self.__dbpath = self.__dirdb + "/" + dbname + ".sqlite3"
 
@@ -90,7 +108,7 @@ class db_nios4:
         return True
     
     def setsql_conn(self,sql,conn):
-        #set value
+        #Executes an sql command directly on the database passed with the conn parameter#set value
         try:
             conn = sqlite3.connect(self.__dbpath)
             c = conn.cursor()
@@ -104,7 +122,7 @@ class db_nios4:
             return False
 
     def setsql(self,sql):
-        #set value
+        #Executes an sql command directly on the database passed with the conn parameter#set value
         try:
             conn = sqlite3.connect(self.__dbpath)
             c = conn.cursor()
@@ -118,7 +136,7 @@ class db_nios4:
             return False
 
     def getsql(self,sql):
-        #get value 
+        #Retrieve a datatable with sql string on the standard database
         try:
             conn = sqlite3.connect(self.__dbpath)
             c = conn.cursor()
@@ -132,7 +150,7 @@ class db_nios4:
             return None
 
     def get_tablesname(self):
-
+        #Retrieves all the names of the tables managed by Nios4
         try:
             records=self.getsql("SELECT tablename,tid FROM so_tables ORDER BY tablename")
             if records == None:
@@ -149,7 +167,7 @@ class db_nios4:
             return None            
 
     def get_fieldstype(self,tablename):
-
+        #Retrieves the type of fields from a specific table
         try:
             records=self.getsql('PRAGMA TABLE_INFO({})'.format(tablename))
             if records == None:
@@ -167,9 +185,9 @@ class db_nios4:
             return None            
 
     def newrow(self,tablename,gguid):
-
+        #Create a new row within the passed table with a gguid (id) set
         try:
-
+            #list of skipped field
             skipfields = ["gguid"]
             
             s1 = "INSERT INTO " + tablename + "(gguid,"
@@ -211,7 +229,7 @@ class db_nios4:
             return False            
 
     def delete_fields(self,list_deletefields,tablename):
-        #delete field on table
+        #Delete a field from a table by rebuilding it
         try:
             #rename table
             tablename_old = tablename + "_".join(random.sample(string.ascii_letters, 15))
@@ -262,7 +280,7 @@ class db_nios4:
 
 
     def get_fieldsname(self):
-
+        #retrieves all currently created fields and tables
         try:
             records=self.getsql("SELECT tablename,fieldname,tid,fieldtype FROM so_fields ORDER BY tablename")
             if records == None:
@@ -305,7 +323,7 @@ class db_nios4:
 
 
     def get_columnsname(self,tablename):
-
+        #Retrieves the column names of a table
         try:
             conn = sqlite3.connect(self.__dbpath)
             c = conn.cursor()
@@ -318,7 +336,7 @@ class db_nios4:
             return None
 
     def get_gguid(self,tablename):
-
+        #Get all gguids from a table
         try:
             values = []
             records=self.getsql("SELECT gguid,tid FROM " + tablename)
@@ -338,7 +356,7 @@ class db_nios4:
 
 
     def extract_sotables(self,tablename,TID):
-
+        #It extracts the data of the tables that have been modified after a certain tid for sending to the synchronizer
         try:
             values = []
             records=self.getsql("SELECT * FROM " + tablename + " where tid >= " + str(TID) + " ORDER BY ind")

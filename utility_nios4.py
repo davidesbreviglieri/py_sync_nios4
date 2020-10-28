@@ -1,13 +1,24 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- 
-
-#==========================================================
+#================================================================================
+#Copyright of Davide Sbreviglieri 2020
+#THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+#AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+#IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+#DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+#FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+#DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+#SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+#CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+#OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+#OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE
+#================================================================================
 #UTILITY NIOS4
-#==========================================================
+#================================================================================
 import datetime
-#==========================================================
+#================================================================================
 class error_n4:
-    
+    #The class handles any program errors
     def __init__(self,errorcode,errormessage):
         self.__errorcode = errorcode
         self.__errormessage = errormessage
@@ -19,9 +30,6 @@ class error_n4:
     @error.setter
     def error(self,value):
         self.__error = value
-        #if self.__error == False:
-        #    self.__errorcode =""
-        #    self.__errormessage = ""
     @error.deleter
     def error(self):
         del self.__error
@@ -48,16 +56,18 @@ class error_n4:
         del self.__errormessage
 #==========================================================
 class utility_n4:
-    
+    #utility Nios4
     def tid(self):
-        #estrapolo il tid
+        #create tid (time id) using timezone 0
         return datetime.datetime.utcnow().strftime('%Y%m%d%H%M%S')
     
     def convap(self,value):
+        #replace single apex for sql string
         valore =value.replace("'", "''")
         return valore
 
     def float_to_str(self,f):
+        #convert float number to string
         float_string = repr(f)
         if 'e' in float_string:  # detect scientific notation
             digits, exp = float_string.split('e')
