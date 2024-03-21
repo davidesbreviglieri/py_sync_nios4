@@ -21,9 +21,13 @@ The project was tested on a Raspberry 3.
 ## Dependency
 The only dependency that normally needs to be installed is the one for sqlite3 to manage the database. All the database management has been realized on an external class to allow to create a possible class connected to another type of database.
 
-To install sqlite3 (after giving the usual update and upgrade commands) type the following command from the terminal:
+To install sqlite3 in linux environment (after giving the usual update and upgrade commands) type the following command from the terminal:
 
 `sudo apt-get install sqlite3`
+
+Or installa python library for Linux and Windows:
+
+`pip install db-sqlite3`
 
 ## Run the project
 To run the project first you need a D-One account and a cloud database created by Nios4 (the free version is fine too)
