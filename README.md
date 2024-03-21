@@ -25,7 +25,7 @@ To install sqlite3 in linux environment (after giving the usual update and upgra
 
 `sudo apt-get install sqlite3`
 
-Or installa python library for Linux and Windows:
+Or install python library for Linux and Windows:
 
 `pip install db-sqlite3`
 
