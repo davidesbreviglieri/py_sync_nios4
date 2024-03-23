@@ -10,6 +10,8 @@ from sync_nios4 import sync_nios4
 username = "username"
 password = "password"
 
+#test update github
+
 #Enter the name of the cloud database
 #If you don't know, go to d-one.store
 #Log in with your data and go to the database management page
